@@ -11,6 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r Packages}
 library(tidyverse) #install.packages("tidyverse")
+library(ggplot2)
 library(readxl) #install.packages("readxl")
 library(here) #install.packages("here")
 library(janitor) #install.packages("janitor")
@@ -31,6 +32,7 @@ library(sf)
 library(rnaturalearth)
 library(rnaturalearthdata)
 library(ggrepel) #install.packages("ggrepel")
+library(ggspatial)#install.packages("ggspatial")
 ```
 
 ```{r import data}
@@ -45,10 +47,17 @@ class(world)
 ```{r}
 
 ggplot(data = world) +
-  geom_sf() +
-  theme_minimal() +
-  coord_sf(xlim = c(13, 16), ylim = c(45, 47), expand = FALSE) +
+  geom_sf(fill= "antiquewhite") +
+  theme(
+    panel.grid.major = element_line(color = gray(.5), linetype = "dashed", size = 0.5),
+    panel.background = element_rect(fill = "aliceblue")
+    ) +
+  coord_sf(xlim = c(13.3, 16.6), ylim = c(45.2, 47), expand = FALSE) +
   xlab("Longitude") + ylab("Latitude") +
+  annotation_scale(location = "br", width_hint = 0.5) +
+    annotation_north_arrow(location = "br", which_north = "true", 
+        pad_x = unit(0.75, "in"), pad_y = unit(0.5, "in"),
+        style = north_arrow_fancy_orienteering) +
   geom_point(data = Dog_Locations, aes(x = Long, y= Lat))
 
 ```
