@@ -52,12 +52,17 @@ ggplot(data = world) +
     panel.grid.major = element_line(color = gray(.5), linetype = "dashed", size = 0.5),
     panel.background = element_rect(fill = "aliceblue")
     ) +
+  labs(
+    title = "Slovenia Sites"
+  ) +
   coord_sf(xlim = c(13.3, 16.6), ylim = c(45.2, 47), expand = FALSE) +
   xlab("Longitude") + ylab("Latitude") +
   annotation_scale(location = "br", width_hint = 0.5) +
     annotation_north_arrow(location = "br", which_north = "true", 
         pad_x = unit(0.75, "in"), pad_y = unit(0.5, "in"),
         style = north_arrow_fancy_orienteering) +
-  geom_point(data = Dog_Locations, aes(x = Long, y= Lat))
+  geom_point(data = Dog_Locations, aes(x = Long, y= Lat)) +
+  geom_label_repel(data = Dog_Locations, aes(label = Site, x = Long, y = Lat, fontface = "bold"),label.size = NA, fill = "white", color = "black", segment.colour = "white", max.overlaps  = Inf, min.segment.length = 0) +
+  geom_label_repel(data = Dog_Locations, aes(label = No, x = Long, y = Lat, fontface = "bold"),label.size = NA, fill = "white", color = "red", segment.colour = "white", max.overlaps  = Inf, min.segment.length = 10)
 
 ```
